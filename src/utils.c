@@ -1,5 +1,7 @@
+// src/utils.c
 #include "utils.h"
 #include <stdio.h>
+#include <sys/stat.h>
 
 int countLines(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -19,3 +21,10 @@ int countLines(const char *filename) {
     return count;
 }
 
+long getFileSize(const char *filename) {
+    struct stat st;
+    if (stat(filename, &st) == 0) {
+        return st.st_size;
+    }
+    return -1; // Error getting file size
+}
